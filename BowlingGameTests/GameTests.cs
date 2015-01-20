@@ -13,33 +13,68 @@ namespace BowlingGameTests
     {
         internal static Frame GetEmptyFrame()
         {
-            return new Frame {RollOne = 0, RollTwo = 0};
+            return GetFrame(0,0);
+        }
+
+        internal static Frame GetFrame(int rollOne, int rollTwo)
+        {
+            return new Frame { RollOne = rollOne, RollTwo = rollTwo };
         }
 
         [TestFixture]
-        public class When_playing_game_with_no_pins_knocked
+        public class When_playing_game_with_no_pins_knocked : With_Game
         {
-            private int _outcome;
-
             [TestFixtureSetUp]
             public void SetUp()
             {
-                var subject = new Game();
-
-                var rolls = new GameState { Frames = new List<Frame>() };
-
                 for (var i = 0; i < 10; i++)
                 {
-                    rolls.Frames.Add(GetEmptyFrame());
+                    CurrentGameState.Frames.Add(GetEmptyFrame());
                 }
 
-                _outcome = subject.Play(rolls);
+                Outcome = Subject.Play(CurrentGameState);
             }
 
             [Test]
             public void should_return_zero()
             {
-                _outcome.ShouldBe(0);
+                Outcome.ShouldBe(0);
+            }
+        }
+
+        [TestFixture]
+        public class When_playing_game_with_only_one_pin_knocked_every_frame : With_Game
+        {
+            [TestFixtureSetUp]
+            public void SetUp()
+            {
+                for (var i = 0; i < 10; i++)
+                {
+                    CurrentGameState.Frames.Add(GetFrame(0,1));
+                }
+
+                Outcome = Subject.Play(CurrentGameState);
+            }
+
+            [Test]
+            public void should_return_ten()
+            {
+                Outcome.ShouldBe(10);
+            }
+        }
+
+        internal class With_Game
+        {
+            protected Game Subject;
+            protected GameState CurrentGameState;
+            protected int Outcome;
+
+            [TestFixtureSetUp]
+            public void SetUp()
+            {
+                Subject = new Game();
+
+                CurrentGameState = new GameState { Frames = new List<Frame>() };
             }
         }
     }

@@ -10,7 +10,7 @@ namespace BowlingGame.Domain
     {
         public int Play(GameState rolls)
         {
-            return 0;
+            return rolls.Frames.Sum(frame => frame.RollOne+frame.RollTwo);
         }
     }
 
