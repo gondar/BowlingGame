@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BowlingGame
 {
-    class Program
+    class BowlingGame
     {
         static void Main(string[] args)
         {
