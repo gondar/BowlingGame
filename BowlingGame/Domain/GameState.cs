@@ -4,6 +4,6 @@ namespace BowlingGame.Domain
 {
     public class GameState
     {
-        public List<Frame> Frames { get; set; }
+        public List<IFrame> Frames { get; set; }
     }
 }
