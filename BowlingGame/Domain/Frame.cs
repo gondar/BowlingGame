@@ -11,6 +11,7 @@
     {
         public int RollOne { get; set; }
         public int RollTwo { get; set; }
+        public int RollThree { get; set; }
 
         public int GetScore(IFrame nextFrame)
         {
@@ -18,7 +19,7 @@
 
             if (frameSum == 10)
             {
-                frameSum += nextFrame.RollOne;
+                frameSum += nextFrame != null ? nextFrame.RollOne : RollThree;
             }
             return frameSum;
         }

@@ -63,5 +63,30 @@ namespace BowlingGameTests
                 _outcome.ShouldBe(15);
             }
         }
+
+        [TestFixture]
+        public class When_computing_spare_in_last_frame
+        {
+            private int _outcome;
+
+            [TestFixtureSetUp]
+            public void SetUp()
+            {
+                var subject = new Frame
+                    {
+                        RollOne = 9,
+                        RollTwo = 1,
+                        RollThree = 5
+                    };
+
+                _outcome = subject.GetScore(null);
+            }
+
+            [Test]
+            public void should_take_into_account_third_roll()
+            {
+                _outcome.ShouldBe(15);
+            }
+        }
     }
 }
