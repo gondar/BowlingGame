@@ -29,17 +29,28 @@
 
         private int ComputeStrike(IFrame nextFrame, IFrame thirdFrame)
         {
-            if (nextFrame != null)
+            var nextRoll = GetNextRoll(nextFrame);
+            var thirdRoll = GetThirdRoll(nextFrame, thirdFrame);
+
+            return RollOne + nextRoll + thirdRoll;
+        }
+
+        private int GetNextRoll(IFrame nextFrame)
+        {
+            return nextFrame != null ? nextFrame.RollOne : RollTwo;
+        }
+
+        private int GetThirdRoll(IFrame nextFrame, IFrame thirdFrame)
+        {
+            if (nextFrame == null)
+                return RollThree;
+
+            if (nextFrame.RollOne == 10)
             {
-                if (nextFrame.RollOne == 10)
-                {
-                    if (thirdFrame != null)
-                        return RollOne + nextFrame.RollOne + thirdFrame.RollOne;
-                    return RollOne + nextFrame.RollOne + nextFrame.RollTwo;
-                }
-                return RollOne + nextFrame.RollOne + nextFrame.RollTwo;   
+                return thirdFrame != null ? thirdFrame.RollOne : nextFrame.RollTwo;
             }
-            return RollOne + RollTwo + RollThree;
+
+            return nextFrame.RollTwo;
         }
     }
 }
