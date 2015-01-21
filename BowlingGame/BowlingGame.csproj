@@ -45,6 +45,7 @@
     <Compile Include="Domain\Frame.cs" />
     <Compile Include="Domain\Game.cs" />
     <Compile Include="Domain\GameState.cs" />
+    <Compile Include="Helpers\PairingExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

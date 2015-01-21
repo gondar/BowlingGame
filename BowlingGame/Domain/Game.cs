@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BowlingGame.Helpers;
 
 namespace BowlingGame.Domain
 {
@@ -9,19 +10,9 @@ namespace BowlingGame.Domain
     {
         public int Play(GameState rolls)
         {
-            var sum = 0;
-
-            for (int i = 0; i < rolls.Frames.Count; i++)
-            {
-                var frame = rolls.Frames[i];
-                var nextFrame = (i+1 < rolls.Frames.Count) ? rolls.Frames[i + 1] : null;
-                var frameSum = frame.GetScore(nextFrame);
-
-                sum += frameSum;
-
-            }
-
-            return sum;
+            return rolls.Frames
+                        .PairUp()
+                        .Sum( pair => pair.Item1.GetScore(pair.Item2));
         }
     }
 }
