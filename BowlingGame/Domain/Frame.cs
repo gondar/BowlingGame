@@ -32,11 +32,13 @@
             if (nextFrame != null)
             {
                 if (nextFrame.RollOne == 10)
-                    return RollOne + nextFrame.RollOne + thirdFrame.RollOne;
-
+                {
+                    if (thirdFrame != null)
+                        return RollOne + nextFrame.RollOne + thirdFrame.RollOne;
+                    return RollOne + nextFrame.RollOne + nextFrame.RollTwo;
+                }
                 return RollOne + nextFrame.RollOne + nextFrame.RollTwo;   
             }
-
             return RollOne + RollTwo + RollThree;
         }
     }

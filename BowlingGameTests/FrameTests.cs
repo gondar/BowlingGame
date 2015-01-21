@@ -172,5 +172,33 @@ namespace BowlingGameTests
                 _outcome.ShouldBe(25);
             }
         }
+
+        [TestFixture]
+        public class When_computing_strike_when_next_is_strike_again_for_last_but_one_frame
+        {
+            private int _outcome;
+
+            [TestFixtureSetUp]
+            public void SetUp()
+            {
+                var subject = new Frame
+                {
+                    RollOne = 10,
+                };
+                var next = new Frame
+                {
+                    RollOne = 10,
+                    RollTwo = 5
+                };
+
+                _outcome = subject.GetScore(next, null);
+            }
+
+            [Test]
+            public void should_include_next_two_rolls()
+            {
+                _outcome.ShouldBe(25);
+            }
+        }
     }
 }
