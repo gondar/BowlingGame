@@ -11,8 +11,8 @@ namespace BowlingGame.Domain
         public int Play(GameState rolls)
         {
             return rolls.Frames
-                        .PairUp()
-                        .Sum( pair => pair.Item1.GetScore(pair.Item2, null));
+                        .GetTriples()
+                        .Sum( tuple => tuple.Item1.GetScore(tuple.Item2, tuple.Item3));
         }
     }
 }

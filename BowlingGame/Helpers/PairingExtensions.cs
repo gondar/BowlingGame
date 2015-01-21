@@ -8,24 +8,33 @@ namespace BowlingGame.Helpers
 {
     public static class PairingExtensions
     {
-        public static IEnumerable<Tuple<T, T>> PairUp<T>(this IEnumerable<T> source) where T : class
+        public static IEnumerable<Tuple<T, T, T>> GetTriples<T>(this IEnumerable<T> source) where T : class
         {
             using (var iterator = source.GetEnumerator())
             {
-                T previous = null;
+                T first = null;
+                T second = null;
                 while (iterator.MoveNext())
                 {
-                    if (previous != null)
+                    var third = iterator.Current;
+                    if (first != null && second != null)
                     {
-                        var first = previous;
-                        var second = iterator.Current;
-                        yield return Tuple.Create(first, second);   
+                        yield return Tuple.Create(first, second, third);
                     }
-                    previous = iterator.Current;
+                    first = second;
+                    second = third;
                 }
-                if (previous != null)
+                if (first != null)
                 {
-                    yield return Tuple.Create(previous, default(T));   
+                    if (second != null)
+                    {
+                        yield return Tuple.Create(first, second, default(T));
+                        yield return Tuple.Create(second, default(T), default(T));
+                    }
+                    else
+                    {
+                        yield return Tuple.Create(first, default(T), default(T));   
+                    }
                 }
             }
         }

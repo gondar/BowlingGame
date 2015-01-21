@@ -19,10 +19,10 @@ namespace BowlingGameTests
             return frame;
         }
 
-        internal static IFrame GetFrame(int score, IFrame nextFrame)
+        internal static IFrame GetFrame(int score, IFrame nextFrame, IFrame thirdFrame)
         {
             var frame = Substitute.For<IFrame>();
-            frame.GetScore(nextFrame, null).Returns(score);
+            frame.GetScore(nextFrame, thirdFrame).Returns(score);
             return frame;
         }
 
@@ -52,16 +52,19 @@ namespace BowlingGameTests
         {
             private IFrame _frameAfterSpare;
             private IFrame _frameWithSpare;
+            private IFrame _frameSecondAfterSpare;
 
             [TestFixtureSetUp]
             public void SetUp()
             {
+                _frameSecondAfterSpare = GetFrame(1);
                 _frameAfterSpare = GetFrame(5);
-                _frameWithSpare = GetFrame(15, _frameAfterSpare);
+                _frameWithSpare = GetFrame(15, _frameAfterSpare, _frameSecondAfterSpare);
 
                 CurrentGameState.Frames.Add(_frameWithSpare);
                 CurrentGameState.Frames.Add(_frameAfterSpare);
-                for (var i = 0; i < 8; i++)
+                CurrentGameState.Frames.Add(_frameSecondAfterSpare);
+                for (var i = 0; i < 7; i++)
                 {
                     CurrentGameState.Frames.Add(GetFrame(1));
                 }
@@ -78,7 +81,7 @@ namespace BowlingGameTests
             [Test]
             public void should_pass_next_frame()
             {
-                _frameWithSpare.Received().GetScore(_frameAfterSpare, null);
+                _frameWithSpare.Received().GetScore(_frameAfterSpare, _frameSecondAfterSpare);
             }
         }
 
@@ -94,7 +97,7 @@ namespace BowlingGameTests
                 {
                     CurrentGameState.Frames.Add(GetFrame(1));
                 }
-                _frameWithSpare = GetFrame(15, null);
+                _frameWithSpare = GetFrame(15, null, null);
                 CurrentGameState.Frames.Add(_frameWithSpare);
 
                 Outcome = Subject.Play(CurrentGameState);
