@@ -15,13 +15,9 @@ namespace BowlingGame.Domain
             for (int i = 0; i < rolls.Frames.Count; i++)
             {
                 var frame = rolls.Frames[i];
-                var frameSum = frame.RollOne + frame.RollTwo;
-                if (frameSum == 10)
-                {
-                    //spare
-                    var nextFrame = rolls.Frames[i + 1];
-                    frameSum += nextFrame.RollOne;
-                }
+                var nextFrame = (i+1 < rolls.Frames.Count) ? rolls.Frames[i + 1] : null;
+                var frameSum = frame.GetScore(nextFrame);
+
                 sum += frameSum;
 
             }
@@ -39,5 +35,16 @@ namespace BowlingGame.Domain
     {
         public int RollOne { get; set; }
         public int RollTwo { get; set; }
+
+        public int GetScore(Frame nextFrame)
+        {
+            var frameSum = RollOne + RollTwo;
+
+            if (frameSum == 10)
+            {
+                frameSum += nextFrame.RollOne;
+            }
+            return frameSum;
+        }
     }
 }
