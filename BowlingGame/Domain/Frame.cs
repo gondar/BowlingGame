@@ -4,7 +4,7 @@
     {
         int RollOne { get; }
         int RollTwo { get; }
-        int GetScore(IFrame nextFrame);
+        int GetScore(IFrame nextFrame, IFrame thirdFrame);
     }
 
     public class Frame : IFrame
@@ -13,10 +13,10 @@
         public int RollTwo { get; set; }
         public int RollThree { get; set; }
 
-        public int GetScore(IFrame nextFrame)
+        public int GetScore(IFrame nextFrame, IFrame thirdFrame)
         {
             if (RollOne == 10)
-                return ComputeStrike(nextFrame);
+                return ComputeStrike(nextFrame, thirdFrame);
 
             var frameSum = RollOne + RollTwo;
 
@@ -27,10 +27,15 @@
             return frameSum;
         }
 
-        private int ComputeStrike(IFrame nextFrame)
+        private int ComputeStrike(IFrame nextFrame, IFrame thirdFrame)
         {
             if (nextFrame != null)
-                return RollOne + nextFrame.RollOne + nextFrame.RollTwo;
+            {
+                if (nextFrame.RollOne == 10)
+                    return RollOne + nextFrame.RollOne + thirdFrame.RollOne;
+
+                return RollOne + nextFrame.RollOne + nextFrame.RollTwo;   
+            }
 
             return RollOne + RollTwo + RollThree;
         }

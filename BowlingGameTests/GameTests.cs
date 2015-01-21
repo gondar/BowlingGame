@@ -15,14 +15,14 @@ namespace BowlingGameTests
         internal static IFrame GetFrame(int score)
         {
             var frame = Substitute.For<IFrame>();
-            frame.GetScore(null).ReturnsForAnyArgs(score);
+            frame.GetScore(null, null).ReturnsForAnyArgs(score);
             return frame;
         }
 
         internal static IFrame GetFrame(int score, IFrame nextFrame)
         {
             var frame = Substitute.For<IFrame>();
-            frame.GetScore(nextFrame).Returns(score);
+            frame.GetScore(nextFrame, null).Returns(score);
             return frame;
         }
 
@@ -78,7 +78,7 @@ namespace BowlingGameTests
             [Test]
             public void should_pass_next_frame()
             {
-                _frameWithSpare.Received().GetScore(_frameAfterSpare);
+                _frameWithSpare.Received().GetScore(_frameAfterSpare, null);
             }
         }
 
@@ -109,7 +109,7 @@ namespace BowlingGameTests
             [Test]
             public void should_pass_null_as_next_frame()
             {
-                _frameWithSpare.Received().GetScore(null);
+                _frameWithSpare.Received().GetScore(null, null);
             }
         }
 

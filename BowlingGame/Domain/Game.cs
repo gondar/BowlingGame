@@ -12,7 +12,7 @@ namespace BowlingGame.Domain
         {
             return rolls.Frames
                         .PairUp()
-                        .Sum( pair => pair.Item1.GetScore(pair.Item2));
+                        .Sum( pair => pair.Item1.GetScore(pair.Item2, null));
         }
     }
 }
