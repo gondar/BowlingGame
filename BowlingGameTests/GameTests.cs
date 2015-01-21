@@ -63,6 +63,28 @@ namespace BowlingGameTests
             }
         }
 
+        [TestFixture]
+        public class When_playing_game_with_first_spare_and_then_one_pin_every_roll : With_Game
+        {
+            [TestFixtureSetUp]
+            public void SetUp()
+            {
+                CurrentGameState.Frames.Add(GetFrame(9, 1));
+                for (var i = 0; i < 9; i++)
+                {
+                    CurrentGameState.Frames.Add(GetFrame(1, 1));
+                }
+
+                Outcome = Subject.Play(CurrentGameState);
+            }
+
+            [Test]
+            public void should_return_with_bonus_for_spare()
+            {
+                Outcome.ShouldBe(11+9*2);
+            }
+        }
+
         internal class With_Game
         {
             protected Game Subject;

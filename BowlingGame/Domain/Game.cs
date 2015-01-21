@@ -10,7 +10,23 @@ namespace BowlingGame.Domain
     {
         public int Play(GameState rolls)
         {
-            return rolls.Frames.Sum(frame => frame.RollOne+frame.RollTwo);
+            var sum = 0;
+
+            for (int i = 0; i < rolls.Frames.Count; i++)
+            {
+                var frame = rolls.Frames[i];
+                var frameSum = frame.RollOne + frame.RollTwo;
+                if (frameSum == 10)
+                {
+                    //spare
+                    var nextFrame = rolls.Frames[i + 1];
+                    frameSum += nextFrame.RollOne;
+                }
+                sum += frameSum;
+
+            }
+
+            return sum;
         }
     }
 
