@@ -42,7 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BowlingGame.cs" />
+    <Compile Include="Domain\Frame.cs" />
     <Compile Include="Domain\Game.cs" />
+    <Compile Include="Domain\GameState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
