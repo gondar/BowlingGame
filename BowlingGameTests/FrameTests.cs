@@ -88,5 +88,58 @@ namespace BowlingGameTests
                 _outcome.ShouldBe(15);
             }
         }
+
+        [TestFixture]
+        public class When_computing_strike
+        {
+            private int _outcome;
+
+            [TestFixtureSetUp]
+            public void SetUp()
+            {
+                var subject = new Frame
+                    {
+                        RollOne = 10
+                    };
+                var next = new Frame
+                    {
+                        RollOne = 4,
+                        RollTwo = 4
+                    };
+
+                _outcome = subject.GetScore(next);
+            }
+
+            [Test]
+            public void should_include_next_two_rolls()
+            {
+                _outcome.ShouldBe(18);
+            }
+        }
+
+        [TestFixture]
+        public class When_computing_strike_in_last_frame
+        {
+            private int _outcome;
+
+            [TestFixtureSetUp]
+            public void SetUp()
+            {
+                var subject = new Frame
+                {
+                    RollOne = 10,
+                    RollTwo = 10,
+                    RollThree = 10
+                };
+
+                _outcome = subject.GetScore(null);
+            }
+
+            [Test]
+            public void should_include_next_two_rolls()
+            {
+                _outcome.ShouldBe(30);
+            }
+        }
     }
 }
