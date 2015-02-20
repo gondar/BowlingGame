@@ -1,4 +1,5 @@
-﻿using BowlingGame.Domain;
+﻿using System;
+using BowlingGame.Domain;
 
 namespace BowlingGame.UI
 {
@@ -6,19 +7,22 @@ namespace BowlingGame.UI
     {
         public IFrame Parse(string frameText)
         {
-            var rolls = frameText.Trim().Split(' ');
-            var roll1 = parseFirstRoll(rolls[0]);
-            var roll2 = parseFirstRoll(rolls[1]);
+            var frame = new Frame();
 
-            return new Frame()
-            {
-                RollOne = roll1,
-                RollTwo = roll2
-            };
+            var rolls = frameText.Trim().Split(' ');
+
+            frame.RollOne = parseFirstRoll(rolls[0]);
+
+            if (frame.RollOne != 10)
+                frame.RollTwo = parseFirstRoll(rolls[1]);
+
+            return frame;
         }
 
         private int parseFirstRoll(string roll)
         {
+            if (roll.Equals("/", StringComparison.Ordinal))
+                return 10;
             return int.Parse(roll);
         }
     }

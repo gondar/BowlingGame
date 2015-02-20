@@ -34,5 +34,25 @@ namespace BowlingGameTests.UI
             }
         }
 
+        [TestFixture]
+        public class When_parsing_strike
+        {
+            private IFrame _outcome;
+
+            [TestFixtureSetUp]
+            public void SetUp()
+            {
+                const string frameText = " / ";
+                var subject = new FrameParser();
+
+                _outcome = subject.Parse(frameText);
+            }
+
+            [Test]
+            public void should_return_strike_for_first_roll()
+            {
+                _outcome.RollOne.ShouldBe(10);
+            }
+        }
     }
 }
