@@ -7,7 +7,12 @@ using BowlingGame.Domain;
 
 namespace BowlingGame.UI
 {
-    public class InputParser
+    public interface IInputParser
+    {
+        List<GameState> Parse(List<string> input);
+    }
+
+    public class InputParser : IInputParser
     {
         private readonly IGameParser _gameParser;
 
@@ -16,11 +21,9 @@ namespace BowlingGame.UI
             _gameParser = gameParser;
         }
 
-        public List<GameState> Parse(string input)
+        public List<GameState> Parse(List<string> input)
         {
-            return input.Split('\n')
-                        .Where(line => !string.IsNullOrEmpty(line))
-                        .Select(game => _gameParser.Parse(game))
+            return input.Select(game => _gameParser.Parse(game))
                         .ToList();
         }
     }

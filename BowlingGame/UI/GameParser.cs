@@ -8,7 +8,7 @@ namespace BowlingGame.UI
         GameState Parse(string gameText);
     }
 
-    public class GameParser
+    public class GameParser : IGameParser
     {
         private readonly IFrameParser _frameParser;
 

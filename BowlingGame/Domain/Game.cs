@@ -6,7 +6,12 @@ using BowlingGame.Helpers;
 
 namespace BowlingGame.Domain
 {
-    public class Game
+    public interface IGame
+    {
+        int Play(GameState rolls);
+    }
+
+    public class Game : IGame
     {
         public int Play(GameState rolls)
         {

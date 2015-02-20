@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using BowlingGame.Domain;
 using BowlingGame.UI;
 using NSubstitute;
@@ -21,7 +17,12 @@ namespace BowlingGameTests.UI
             [TestFixtureSetUp]
             public void SetUp()
             {
-                const string input = "game1\ngame2\ngame3\n";
+                var input = new List<string>
+                    {
+                        "game1",
+                        "game2",
+                        "game3"
+                    };
                 var gameParser = Substitute.For<IGameParser>();
                 gameParser.Parse(null).ReturnsForAnyArgs(new GameState());
                 var subject = new InputParser(gameParser);
