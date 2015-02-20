@@ -4,6 +4,7 @@
     {
         int RollOne { get; }
         int RollTwo { get; }
+        int RollThree { get; }
         int GetScore(IFrame nextFrame, IFrame thirdFrame);
     }
 

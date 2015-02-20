@@ -68,6 +68,34 @@ namespace BowlingGameTests.UI
             }
         }
 
+        [TestFixture]
+        public class When_parsing_last_frame_with_strike_or_spare : WithFrameParser
+        {
+            [TestFixtureSetUp]
+            public void SetUp()
+            {
+                Frame = Subject.Parse("/ 1 2");
+            }
+
+            [Test]
+            public void should_return_first_roll()
+            {
+                Frame.RollOne.ShouldBe(10);
+            }
+
+            [Test]
+            public void should_return_second_roll()
+            {
+                Frame.RollTwo.ShouldBe(1);
+            }
+
+            [Test]
+            public void should_return_third_roll()
+            {
+                Frame.RollThree.ShouldBe(2);
+            }
+        }
+
         public class WithFrameParser
         {
             protected FrameParser Subject;

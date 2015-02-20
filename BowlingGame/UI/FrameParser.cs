@@ -16,29 +16,32 @@ namespace BowlingGame.UI
 
             var rolls = frameText.Trim().Split(' ');
 
-            frame.RollOne = parseFirstRoll(rolls[0]);
+            frame.RollOne = ParseRoll(rolls[0]);
 
-            if (frame.RollOne != 10)
-                frame.RollTwo = parseSecondRoll(rolls[1], frame.RollOne);
+            if (rolls.Length > 1)
+                frame.RollTwo = ParseSecondRoll(rolls[1], frame.RollOne);
+
+            if (rolls.Length > 2)
+                frame.RollThree = ParseRoll(rolls[2]);
 
             return frame;
         }
 
-        private int parseFirstRoll(string rollText)
+        private int ParseRoll(string rollText)
         {
-            if (isAllStandingPins(rollText))
+            if (IsAllStandingPins(rollText))
                 return 10;
             return int.Parse(rollText);
         }
 
-        private int parseSecondRoll(string rollText, int roll1)
+        private int ParseSecondRoll(string rollText, int roll1)
         {
-            if (isAllStandingPins(rollText))
+            if (IsAllStandingPins(rollText))
                 return 10 - roll1;
             return int.Parse(rollText);
         }
 
-        private bool isAllStandingPins(string rollText)
+        private static bool IsAllStandingPins(string rollText)
         {
             return rollText.Equals("/", StringComparison.Ordinal);
         }
