@@ -48,6 +48,8 @@
     <Compile Include="Helpers\PairingExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UI\FrameParser.cs" />
+    <Compile Include="UI\GameParser.cs" />
+    <Compile Include="UI\InputParser.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

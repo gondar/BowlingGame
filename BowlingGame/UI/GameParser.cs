@@ -3,6 +3,11 @@ using BowlingGame.Domain;
 
 namespace BowlingGame.UI
 {
+    public interface IGameParser
+    {
+        GameState Parse(string gameText);
+    }
+
     public class GameParser
     {
         private readonly IFrameParser _frameParser;
