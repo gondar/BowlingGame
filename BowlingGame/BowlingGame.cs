@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BowlingGame.Domain;
 using BowlingGame.UI;
 
@@ -30,11 +26,12 @@ namespace BowlingGame
 
         public void Play()
         {
-            var input = _consoleWrapper.ReadLines();
-            var gameStates = _inputParser.Parse(input);
+            var gameStates = _inputParser.Parse(_consoleWrapper.ReadLines());
+
             var output = gameStates.Select(gameState => _game.Play(gameState))
                                    .Select(result => result.ToString(CultureInfo.InvariantCulture))
                                    .ToList();
+
             _consoleWrapper.WriteLines(output);
         }
     }
