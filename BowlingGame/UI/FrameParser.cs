@@ -3,7 +3,12 @@ using BowlingGame.Domain;
 
 namespace BowlingGame.UI
 {
-    public class FrameParser
+    public interface IFrameParser
+    {
+        IFrame Parse(string frameText);
+    }
+
+    public class FrameParser : IFrameParser
     {
         public IFrame Parse(string frameText)
         {

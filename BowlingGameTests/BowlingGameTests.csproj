@@ -52,6 +52,7 @@
     <Compile Include="Domain\GameTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UI\FrameParserTests.cs" />
+    <Compile Include="UI\GameParserTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
