@@ -8,77 +8,75 @@ namespace BowlingGameTests.UI
     class FrameParserTests
     {
         [TestFixture]
-        public class When_parsing_single_frame
+        public class When_parsing_single_frame : WithFrameParser
         {
-            private IFrame _outcome;
-
             [TestFixtureSetUp]
             public void SetUp()
             {
-                const string frameText = " 1 2 ";
-                var subject = new FrameParser();
-
-                _outcome = subject.Parse(frameText);
+                Frame = Subject.Parse(" 1 2 ");
             }
 
             [Test]
             public void should_return_valid_first_roll_value()
             {
-                _outcome.RollOne.ShouldBe(1);
+                Frame.RollOne.ShouldBe(1);
             }
 
             [Test]
             public void should_return_valid_second_roll_value()
             {
-                _outcome.RollTwo.ShouldBe(2);
+                Frame.RollTwo.ShouldBe(2);
             }
         }
 
         [TestFixture]
-        public class When_parsing_strike
+        public class When_parsing_strike : WithFrameParser
         {
-            private IFrame _outcome;
 
             [TestFixtureSetUp]
             public void SetUp()
             {
-                const string frameText = " / ";
-                var subject = new FrameParser();
-
-                _outcome = subject.Parse(frameText);
+                Frame = Subject.Parse(" / ");
             }
 
             [Test]
             public void should_return_strike_for_first_roll()
             {
-                _outcome.RollOne.ShouldBe(10);
+                Frame.RollOne.ShouldBe(10);
             }
         }
 
         [TestFixture]
-        public class When_parsing_spare
+        public class When_parsing_spare : WithFrameParser
         {
-            private IFrame _outcome;
-
             [TestFixtureSetUp]
             public void SetUp()
             {
-                const string frameText = " 3 / ";
-                var subject = new FrameParser();
-
-                _outcome = subject.Parse(frameText);
+                Frame = Subject.Parse(" 3 / ");
             }
 
             [Test]
             public void should_return_first_roll()
             {
-                _outcome.RollOne.ShouldBe(3);
+                Frame.RollOne.ShouldBe(3);
             }
 
             [Test]
             public void should_return_second_roll()
             {
-                _outcome.RollTwo.ShouldBe(7);
+                Frame.RollTwo.ShouldBe(7);
+            }
+        }
+
+        public class WithFrameParser
+        {
+            protected FrameParser Subject;
+            protected IFrame Frame;
+
+            [TestFixtureSetUp]
+            public void SetUp()
+            {
+                Subject = new FrameParser();
             }
         }
     }
