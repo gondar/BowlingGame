@@ -48,9 +48,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FrameTests.cs" />
-    <Compile Include="GameTests.cs" />
+    <Compile Include="Domain\FrameTests.cs" />
+    <Compile Include="Domain\GameTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UI\FrameParserTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
